@@ -11,9 +11,27 @@
     <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
+        <!--main page-->
+        <div id="nav">
+                <h1 class="page-header center">Countries around...</h1>
+                <p>Get info for any country you want...</p>
+        </div>
+        <div>
+                <input type="text" id="countrySearchInput" class="input" placeholder="Country "/>
+        
+                <button class="btn btn-outline-light" style="margin-left: 10px;" id="countrySearchBtn">Search</button>
+                
+        </div>
 
-    <h1 class="test">test</h1>
+        <div class="row table">
+                <div class="col-md-2">Flag</div>
+                <div class="col-md-2" id="name">Name</div>
+                <div class="col-md-2" id="population">Population</div>
+                <div class="col-md-2">Capital</div>
+                <div class="col-md-2" id="area">Area</div>
 
+        </div>
+        <div class="table" id="tableResult"></div>
 
 
 

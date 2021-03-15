@@ -7,12 +7,8 @@ body {
     padding: 0;
 }
 
-.table {
-    background-color: rgba(255, 255, 255, 0.6);
-}
-
-.form-control {
-    margin-right: 50px;
+.jumbotron {
+    height: 83vh;
 }
 
 #pages .page {
@@ -20,6 +16,16 @@ body {
     text-align: center;
 }
 
+#pages .page:first-child {
+    display: block;
+}
+
 #loader {
     display: none;
+    height: 10vh;
+}
+
+#ascName, #descName {
+    cursor: pointer;
+    color: green;
 }

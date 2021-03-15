@@ -2,3 +2,10 @@
     display: flex;
     flex-direction: row-reverse;
 }
+#sortName:hover {
+    cursor: pointer;
+}
+
+#sortCapital:hover {
+    cursor: pointer;
+}

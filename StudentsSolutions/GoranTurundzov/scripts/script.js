@@ -13,16 +13,18 @@ let navigationService = {
     contryName: document.getElementsByClassName(`contryName`),
     nameDirection: true,
     capitalDirection: true,
-    loader: true,
+    loader: false,
 
     registeredListeners: ()=> {
         navigationService.searchBtn.addEventListener(`click` , function(){
-            uiService.loaderToggle()
+            
             apiService.getData(navigationService.searchBar.value)
+         
+            
         });
        
         navigationService.searchBtnLang.addEventListener(`click`, function(){
-           uiService.loaderToggle()
+          
             apiService.getDataLanguage(navigationService.searchBarLang.value)
         });
 
@@ -31,7 +33,7 @@ let navigationService = {
     },
     contrySelect: ()=> {
         for(let i = 0; i <   navigationService.neighboursSearch.length; i++){
-            console.log(navigationService.neighboursSearch[i])
+           
             navigationService.neighboursSearch[i].addEventListener(`click`, function(){
                 apiService.getData(navigationService.neighboursSearch[i].innerText)
             })
@@ -52,9 +54,12 @@ let apiService ={
     url: `https://restcountries.eu/rest/v2/alpha/`,
     urlFullname: `https://restcountries.eu/rest/v2/name/`,
     getData: async (contry)=> {
-        
+        await uiService.loaderToggle()
         let call = await fetch(`${apiService.url}${contry}`) 
+     
+        if(call.status > 399 && call.status < 500){navigationService.searchBar.value = `no Such contry` }
         let data = await call.json();
+       
         await uiService.printNames(data);
         await uiService.printNeighbors(data);
         await uiService.printFlag(data);
@@ -64,9 +69,12 @@ let apiService ={
         navigationService.languageSelect()
         await uiService.loaderToggle()
         
+        
     },
     getDataLanguage: async (lang)=> {
+        await uiService.loaderToggle()
         let call = await fetch(`https://restcountries.eu/rest/v2/lang/${lang}`);
+        if(call.status > 399 && call.status < 500){navigationService.searchBarLang.value = `no Such Language` }
         let data = await call.json();
 
         await uiService.printContryLang(data)
@@ -91,8 +99,8 @@ let apiService ={
         navigationService.nameEng.innerHTML = `${data.name}`
         if(data.altSpellings[2]){
             navigationService.nameDom.innerHTML = `${data.altSpellings[2]}`
-            console.log(data.altSpellings[2])
-        } else {return}
+            
+        } else {navigationService.nameDom.innerHTML = ``}
     },
     printNeighbors: (data) => {
         navigationService.borders.innerHTML = `Borders`;
@@ -133,12 +141,12 @@ let apiService ={
                 <div class="col-md-1"><img src="${contry.flag}"  width="60%" ></div>
                 <div class="col-md-4"><a name="${contry.alpha3Code}" href="#" class="contryName">${contry.name} </a></div>
                 <div class="col-md-4" >${contry.capital}</div>
-                <div class="col-md-3">${contry.population}</div>
+                <div class="col-md-3" id="sortPopulation">${contry.population}</div>
             </div>
             `
         })
         document.getElementById(`sortName`).addEventListener(`click` , function(){
-            console.log(`clicked`)
+            
             if(navigationService.nameDirection === false){
                 data.sort((a,b) => {
                     navigationService.nameDirection = true;
@@ -154,7 +162,7 @@ let apiService ={
         uiService.printContryLang(data)
         });
         document.getElementById(`sortCapital`).addEventListener(`click` , function(){
-            console.log(`clicked`)
+         
             if(navigationService.capitalDirection === false){
                 data.sort((a,b) => {
                     navigationService.capitalDirection = true;
@@ -169,6 +177,7 @@ let apiService ={
         }
         uiService.printContryLang(data)
         });
+        
     },
     
  }

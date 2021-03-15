@@ -13,6 +13,7 @@ let navigationService = {
     contryName: document.getElementsByClassName(`contryName`),
     nameDirection: true,
     capitalDirection: true,
+    populationSort: true,
     loader: false,
 
     registeredListeners: ()=> {
@@ -130,10 +131,10 @@ let apiService ={
     },
     printContryLang: (data)=> {
         document.getElementById(`container`).innerHTML = `<div class="row">
-        <div class="col-md-2" > Flag </div>
+        <div class="col-md-1" > Flag </div>
         <div class="col-md-4" id="sortName">Name</div>
         <div class="col-md-4" id="sortCapital">Capital</div>
-        <div class="col-md-2">Population</div>
+        <div class="col-md-3" id="sortPopulation">Population</div>
     </div>`
         data.map(contry => {
             document.getElementById(`container`).innerHTML += `
@@ -141,7 +142,7 @@ let apiService ={
                 <div class="col-md-1"><img src="${contry.flag}"  width="60%" ></div>
                 <div class="col-md-4"><a name="${contry.alpha3Code}" href="#" class="contryName">${contry.name} </a></div>
                 <div class="col-md-4" >${contry.capital}</div>
-                <div class="col-md-3" id="sortPopulation">${contry.population}</div>
+                <div class="col-md-3" >${contry.population}</div>
             </div>
             `
         })
@@ -173,6 +174,22 @@ let apiService ={
                 data.sort((a,b) => {
                     navigationService.capitalDirection = false;
                     if(a.capital > b.capital) return -1; 
+            });
+        }
+        uiService.printContryLang(data)
+        });
+        document.getElementById(`sortPopulation`).addEventListener(`click` , function(){
+         console.log(`clicked`)
+            if(navigationService.populationSort === false){
+                data.sort((a ,b) => {
+                    navigationService.populationSort = true;
+                    return a.population - b.population;
+                   
+               });
+            } else if (navigationService.populationSort === true){
+                data.sort((a,b) => {
+                    navigationService.populationSort = false;
+                    return b.population - a.population; 
             });
         }
         uiService.printContryLang(data)

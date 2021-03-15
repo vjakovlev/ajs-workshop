@@ -12,23 +12,26 @@
 </head>
 <body>
 
-        <button id="des">Sort descending order</button>
-        <button id="asc">Sort ascending  order</button>
-        <input type="search" id="search">
-        <button id="btn">Search</button>
-        <div id="loader"><img src="src/tenor.gif"></div>
-        <table border="1">
-                <tr id="th">
-                        
-                </tr>
-                <tbody id="tbody">
+        <div id="header">
+                <h1 class="page-header center">Get countries info! </h1>
+                <p>This site will show everything you need to know about the wanted country!</p>
+        </div>
+        <div class="jumbotron">
+                <input type="text" id="searchInput" placeholder="Enter Country to search: "/>
+                <button class="btn btn-outline-light" style="margin-left: 10px;" id="searchBtn">Search</button>
+                <div id="loader"><img src="./src/img/loader.gif" alt="Loader" height="50px"></div>
+        </div>
 
-                </tbody>
-        </table>
-        
-        
-        
-        
+        <div class="row table">
+                <div class="col-md-2">Flag</div>
+                <div class="col-md-2" id="name">Name</div>
+                <div class="col-md-2" id="population">Population</div>
+                <div class="col-md-2">Capital</div>
+                <div class="col-md-2" id="area">Area</div>
+                <div class="col-md-1">Language Name</div>
+                <div class="col-md-1">Currency Name</div>
+        </div>
+        <div class="table" id="tableResult"></div>
 
 
 
